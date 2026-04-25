@@ -1,0 +1,271 @@
+/* --- Global Reset & Typography --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Header / Navbar Styling --- */
+.navbar {
+    background-color: #F8F5F1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    height: 70px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 10;
+}
+
+/* Small Logo in Navbar */
+.navbar-logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-box {
+    background-color: #8A2A2A;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.logo-letter {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.logo-text {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #2C2C2C;
+}
+
+/* Navbar Links */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4A4A4A;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 12px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #8A2A2A;
+}
+
+/* Navbar Buttons */
+.btn-login {
+    background-color: transparent;
+    border: 2px solid #8A2A2A;
+    color: #8A2A2A;
+    padding: 8px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-login:hover {
+    background-color: #8A2A2A;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-signup {
+    background-color: #8A2A2A;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-signup:hover {
+    background-color: #6E2222;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(138, 42, 42, 0.3);
+}
+
+/* --- Hero Section Styling --- */
+.hero-section {
+    /* Note: In Vite, put library_bg.jpg in your public folder */
+    background-image: url('/library_bg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100vh - 70px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Large Logo in the Hero Section */
+.hero-logo-container {
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.large-logo-box {
+    background-color: #8A2A2A; 
+    width: 80px; 
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px; 
+    margin-right: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.large-logo-letter {
+    color: white;
+    font-size: 50px; 
+    font-weight: 800;
+}
+
+.large-logo-text {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 70px; 
+    color: white; 
+    text-shadow: 2px 4px 15px rgba(0,0,0,0.6);
+}
+
+/* --- Auth Panels (Login & Sign Up) Styling --- */
+.auth-panel {
+    position: absolute; 
+    right: 8%; 
+    
+    /* Modern Frosted Glass Effect */
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    width: 380px;
+    padding: 45px 40px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
+    
+    /* Hidden state */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* Active state */
+.auth-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    z-index: 5;
+}
+
+.auth-title {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #2C2C2C;
+    text-align: center;
+}
+
+/* Inputs */
+.input-container {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 8px; 
+    border: 1px solid #D1D1D1;
+    background-color: #F9F9F9;
+    font-size: 15px;
+    transition: border 0.2s, background 0.2s;
+    outline: none; 
+}
+
+.input-container input:focus {
+    border: 1px solid #8A2A2A;
+    background-color: #FFFFFF;
+}
+
+/* Shared Submit Button for both Log In and Sign Up */
+.btn-submit {
+    background-color: #8A2A2A; 
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%; 
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #6E2222;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(138, 42, 42, 0.2);
+}
+
+/* Footer Links */
+.auth-footer {
+    text-align: center;
+    font-size: 14px;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: #666;
+    display: block;
+    margin-bottom: 15px;
+    transition: color 0.2s;
+}
+
+.forgot-password:hover {
+    color: #8A2A2A;
+    text-decoration: underline;
+}
+
+.switch-prompt {
+    color: #666;
+    border-top: 1px solid #EBEBEB;
+    padding-top: 15px;
+}
+
+.switch-link {
+    color: #8A2A2A;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.switch-link:hover {
+    text-decoration: underline;
+}
