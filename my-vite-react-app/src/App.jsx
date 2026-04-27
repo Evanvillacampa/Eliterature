@@ -1,24 +1,40 @@
 import { useState } from 'react';
+import Dashboard from './components/Dashboard'; // Connects to your new file!
 import './App.css';
 
 function App() {
-  // Manage which panel is currently active ('login', 'signup', 'about', or null)
   const [activePanel, setActivePanel] = useState(null);
-  
-  // Track the username input exactly like your original JS script
   const [loginUsername, setLoginUsername] = useState('');
+  
+  // 1. New State to track if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Toggles the active panel or closes it if it's already open
   const togglePanel = (panelName) => {
     setActivePanel((prevPanel) => (prevPanel === panelName ? null : panelName));
   };
 
   const handleUsernameChange = (e) => {
-    const currentText = e.target.value;
-    setLoginUsername(currentText);
-    console.log("Current Username:", currentText);
+    setLoginUsername(e.target.value);
   };
 
+  // 2. Function to handle the actual login button click
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(true); // Changes state to true, triggering the Dashboard
+  };
+
+  // 3. Function to handle logging out from the dashboard
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setActivePanel(null); // Resets the panels so they don't pop open
+  };
+
+  // 4. If the user is logged in, ONLY show the Dashboard!
+  if (isLoggedIn) {
+    return <Dashboard onLogout={handleLogout} />;
+  }
+
+  // Otherwise, show the landing page below...
   return (
     <>
       <header className="navbar">
@@ -48,7 +64,8 @@ function App() {
         <div className={`auth-panel ${activePanel === 'login' ? 'active' : ''}`} id="loginPanel">
           <h2 className="auth-title">Welcome Back</h2>
           
-          <form id="loginForm" onSubmit={(e) => e.preventDefault()}>
+          {/* 5. UPDATED: Connected the form to our new login function */}
+          <form id="loginForm" onSubmit={handleLoginSubmit}>
             <div className="input-container">
               <input 
                 type="text" 
