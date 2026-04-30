@@ -1,16 +1,20 @@
 /* (src/components/Dashboard.css) */
 
 :root {
-  /* Cleaner, more refined color palette */
-  --dash-bg-light: #ffffff;      /* Pure white body */
-  --dash-header-bg: #f8f8f8;      /* Very subtle light grey header */
+  /* Warm, earthy color palette to match the login theme */
+  --dash-bg-light: #faf7f2;       /* Warm off-white body instead of stark white */
+  --dash-header-bg: #f4eee6;      /* Very subtle warm tan header */
   --dash-logo-bg: #d1b8a5;        /* Subtler pinkish-brown for logo box */
-  --dash-logo-accent: #d94f3a;   /* Slightly deeper red for 'E' */
-  --dash-card-bg: #fcfcfc;        /* Almost white cards */
+  --dash-logo-accent: #d94f3a;    /* Deeper red for 'E' */
+  --dash-card-bg: #ffffff;        /* Pure white cards to pop against the warm bg */
   --dash-card-highlight: #f2e9d2; /* Softer tan highlight for title */
-  --dash-text: #333333;           /* Clean dark grey text */
-  --dash-icon-color: #555555;     /* Softer icon color */
-  --dash-border-light: #e0e0e0;   /* Light grey borders */
+  --dash-text: #4a3f35;           /* Deep espresso brown instead of dark grey */
+  --dash-icon-color: #8b7355;     /* Warm brownish-grey */
+  --dash-border-light: #e8dccb;   /* Warm light border */
+  
+  /* Primary Button Colors */
+  --dash-primary-btn: #8b5e3c;    
+  --dash-primary-hover: #6b462a;
 }
 
 /* Base Styles */
@@ -20,27 +24,28 @@
   display: flex;
   flex-direction: column;
   color: var(--dash-text);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Header */
 .dash-header {
   background-color: var(--dash-header-bg);
-  padding: 15px 50px; /* Generous padding */
+  padding: 15px 50px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05); /* Modern soft shadow */
+  box-shadow: 0 2px 12px rgba(139, 94, 60, 0.08); /* Tinted shadow */
 }
 
 /* Logo Box */
 .dash-logo-box {
   background-color: var(--dash-logo-bg);
-  padding: 8px 18px; /* Refined padding */
+  padding: 8px 18px; 
   border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 12px;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.4); /* Slight inner glow */
 }
 
 .dash-logo-letter {
@@ -53,8 +58,8 @@
   font-family: 'Georgia', serif;
   font-weight: bold;
   font-size: 24px;
-  font-style: normal; /* Cleaner look than italic */
-  color: #000000;
+  font-style: normal; 
+  color: #3e2723; /* Very dark warm brown */
 }
 
 /* Center Search Area */
@@ -68,44 +73,50 @@
 }
 
 .dash-settings-icon-btn {
-  background-color: #ffffff;
+  background-color: var(--dash-card-bg);
   border: 1px solid var(--dash-border-light);
-  padding: 10px; /* Generous padding */
+  padding: 10px; 
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--dash-icon-color);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 5px rgba(139, 94, 60, 0.05);
   transition: all 0.2s ease-in-out;
 }
 
 .dash-settings-icon-btn:hover {
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background-color: var(--dash-card-highlight);
+  color: var(--dash-primary-btn);
+  border-color: var(--dash-logo-bg);
+  box-shadow: 0 4px 10px rgba(139, 94, 60, 0.1);
 }
 
 .dash-search-container {
-  background-color: #ffffff;
+  background-color: var(--dash-card-bg);
   border-radius: 25px;
   display: flex;
   align-items: center;
   padding: 5px 20px;
   flex: 1;
   border: 1px solid var(--dash-border-light);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); /* Subtle inner shadow */
+  box-shadow: inset 0 1px 3px rgba(139, 94, 60, 0.04); 
 }
 
 .dash-search-input {
   flex: 1;
   border: none;
-  padding: 12px 0; /* More input padding */
+  padding: 12px 0; 
   outline: none;
   font-size: 15px;
   font-weight: 600;
-  color: #555;
+  color: var(--dash-text);
   background-color: transparent;
+}
+
+.dash-search-input::placeholder {
+  color: #bfaea3; /* Warm placeholder text */
 }
 
 .dash-search-icon-btn {
@@ -119,14 +130,14 @@
 }
 
 .dash-search-icon-btn:hover {
-  color: #000;
+  color: var(--dash-primary-btn);
 }
 
 /* Right Profile Icon */
 .dash-profile-btn {
-  background-color: #ffffff;
+  background-color: var(--dash-card-bg);
   border-radius: 50%;
-  width: 50px; /* Refined size */
+  width: 50px; 
   height: 50px;
   border: 1px solid var(--dash-border-light);
   display: flex;
@@ -135,86 +146,89 @@
   cursor: pointer;
   color: var(--dash-icon-color);
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 5px rgba(139, 94, 60, 0.05);
 }
-
 .dash-profile-btn:hover {
   transform: scale(1.05);
-  background-color: #f5f5f5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background-color: var(--dash-card-highlight);
+  color: var(--dash-primary-btn);
+  border-color: var(--dash-logo-bg);
+  box-shadow: 0 4px 10px rgba(139, 94, 60, 0.12);
 }
 
 /* Main Grid */
 .dash-main {
-  padding: 50px 80px; /* Generous main padding */
+  padding: 50px 80px; 
 }
 
 .dash-book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); /* responsive grid */
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); 
   gap: 40px;
-  justify-items: center; /* center cards */
+  justify-items: center; 
 }
 
 /* Cards */
 .book-card {
   background-color: var(--dash-card-bg);
-  border-radius: 12px; /* softer corners */
+  border-radius: 12px; 
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 310px; /* larger cards */
+  height: 310px; 
   width: 100%;
-  max-width: 250px; /* limit card width */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Modern shadow */
+  max-width: 250px; 
+  border: 1px solid var(--dash-border-light);
+  box-shadow: 0 4px 15px rgba(139, 94, 60, 0.08); 
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .book-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(139, 94, 60, 0.15);
+  border-color: var(--dash-logo-bg);
 }
 
 .book-card-image-placeholder {
   flex: 1;
-  background-color: #eeeeee; /* Clean grey placeholder */
+  background-color: #eae3db; /* Warmer grey placeholder */
+  color: #998a7c;
 }
 
 .book-card-title {
   background-color: var(--dash-card-highlight);
-  padding: 15px 20px; /* generous padding */
+  padding: 15px 20px; 
   text-align: center;
+  border-top: 1px solid var(--dash-border-light);
 }
 
 .book-card-title p {
-  font-weight: 600; /* Medium weight */
+  font-weight: 600; 
   margin: 0;
-  color: black;
+  color: var(--dash-text);
   font-size: 17px;
 }
 
 /* --- Profile Dropdown Mini Dashboard --- */
 
-/* Ensures the dropdown stays pinned to the button */
 .dash-header-right {
   position: relative; 
 }
 
 .profile-dropdown {
   position: absolute;
-  top: 65px; /* Pushes it just below the header */
+  top: 65px; 
   right: 0;
-  background-color: var(--dash-bg-light);
-  border: 1px solid var(--dash-border-light);
+  background-color: var(--dash-card-bg);
+  border: 1px solid var(--dash-logo-bg);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(139, 94, 60, 0.15);
   width: 240px;
-  z-index: 100; /* Keeps it on top of the books */
+  z-index: 100; 
   overflow: hidden;
-  animation: slideDown 0.2s ease-out; /* Smooth pop-in effect */
+  animation: slideDown 0.2s ease-out; 
 }
 
-/* Animation keyframes */
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -222,7 +236,7 @@
 
 .dropdown-user-info {
   padding: 20px;
-  background-color: #fcfcfc;
+  background-color: var(--dash-header-bg);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -234,7 +248,7 @@
 }
 
 .dropdown-user-info span {
-  color: #777;
+  color: var(--dash-icon-color);
   font-size: 13px;
 }
 
@@ -257,11 +271,12 @@
   font-weight: 500;
   cursor: pointer;
   text-align: left;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .dropdown-item:hover {
-  background-color: #f5f5f5;
+  background-color: var(--dash-card-highlight);
+  color: var(--dash-primary-btn);
 }
 
 .dropdown-icon {
@@ -274,5 +289,457 @@
 }
 
 .logout-item:hover {
-  background-color: #fef0ef; /* Very light red hover */
+  background-color: #fdf2f0; /* Very light warm red hover */
+}
+
+/* --- Filter Dropdown Styling --- */
+
+.dash-filter-container {
+  position: relative; 
+}
+
+.active-filter {
+  background-color: var(--dash-logo-bg);
+  color: #fff;
+  border-color: var(--dash-logo-bg);
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background-color: var(--dash-card-bg);
+  border: 1px solid var(--dash-logo-bg);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(139, 94, 60, 0.15);
+  width: 220px;
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-section {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--dash-icon-color);
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+.filter-section button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--dash-text);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-section button:hover {
+  background-color: var(--dash-bg-light);
+}
+
+.filter-section button.selected {
+  background-color: var(--dash-card-highlight); 
+  color: var(--dash-primary-btn);
+  font-weight: 600;
+}
+
+.filter-divider {
+  border: none;
+  border-top: 1px solid var(--dash-border-light);
+  margin: 0;
+}
+
+/* Book Card subtitle updates */
+.book-card-subtitle {
+  display: block;
+  font-size: 12px;
+  color: var(--dash-icon-color);
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+/* Empty State Styling */
+.no-results {
+  text-align: center;
+  margin-top: 80px;
+  color: var(--dash-icon-color);
+}
+
+.no-results h3 {
+  font-size: 24px;
+  color: var(--dash-text);
+  margin-bottom: 10px;
+}
+
+.reset-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--dash-logo-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.reset-btn:hover {
+  background-color: #c0402c; /* Deeper red hover */
+}
+
+/* Add Book Button in Header */
+.add-book-btn {
+  background-color: var(--dash-primary-btn);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  margin-right: 15px;
+  box-shadow: 0 2px 5px rgba(139, 94, 60, 0.2);
+}
+
+.add-book-btn:hover {
+  background-color: var(--dash-primary-hover);
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(74, 63, 53, 0.6); /* Warm dark overlay instead of pure black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--dash-card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  border: 1px solid var(--dash-logo-bg);
+  box-shadow: 0 10px 25px rgba(74, 63, 53, 0.25);
+}
+
+.modal-content h3 { margin-bottom: 20px; color: var(--dash-text); }
+
+.modal-content form { display: flex; flex-direction: column; gap: 15px; }
+
+.modal-content input, .modal-content select {
+  padding: 10px;
+  border: 1px solid var(--dash-border-light);
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: var(--dash-bg-light);
+  color: var(--dash-text);
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-save {
+  background-color: var(--dash-primary-btn);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-save:hover { background-color: var(--dash-primary-hover); }
+
+/* Real Image Styling for Cards */
+.book-cover-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; 
+  border-bottom: 1px solid var(--dash-border-light);
+}
+.book-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* File Upload Inputs */
+.file-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--dash-header-bg);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px dashed var(--dash-logo-bg);
+}
+.file-inputs label {
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  color: var(--dash-text);
+}
+.file-inputs input {
+  margin-top: 5px;
+  border: none;
+  padding: 5px 0;
+  color: var(--dash-icon-color);
+}
+textarea {
+  padding: 10px;
+  border: 1px solid var(--dash-border-light);
+  border-radius: 6px;
+  font-family: inherit;
+  resize: vertical;
+  background-color: var(--dash-bg-light);
+  color: var(--dash-text);
+}
+
+/* Reading Room Modal Styling */
+.reading-room {
+  width: 600px;
+  max-width: 90%;
+}
+.reading-room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--dash-border-light);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--dash-icon-color);
+}
+.close-btn:hover { color: var(--dash-logo-accent); }
+.reading-room-body {
+  display: flex;
+  gap: 25px;
+}
+.reading-cover {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(139, 94, 60, 0.2);
+}
+.reading-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.reading-genre {
+  color: var(--dash-primary-btn);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.reading-summary {
+  background: var(--dash-header-bg);
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: auto; 
+  color: var(--dash-text);
+  border: 1px solid var(--dash-border-light);
+}
+.read-book-btn {
+  background-color: var(--dash-primary-btn);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 20px;
+  display: block;
+}
+.read-book-btn:hover { background-color: var(--dash-primary-hover); }
+.no-file-msg { color: var(--dash-icon-color); font-style: italic; margin-top: 20px; }
+
+/* Reading Room Actions (Delete Button) */
+.reading-room-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.read-book-btn {
+  flex: 1; 
+  margin-top: 0; 
+}
+.delete-book-btn {
+  background-color: var(--dash-logo-accent); /* Matched to theme red */
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete-book-btn:hover {
+  background-color: #c0402c;
+}
+
+/* Edit Button Styling */
+.edit-book-btn {
+  background-color: #e6a13c; /* Warmer, softer yellow/orange */
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-book-btn:hover {
+  background-color: #d18f2c;
+}
+
+/* Filter Saved Books Button */
+.dash-header-right {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.filter-saved-btn {
+  background: var(--dash-card-bg);
+  border: 1px solid var(--dash-border-light);
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--dash-text);
+  transition: all 0.2s;
+}
+.filter-saved-btn.active {
+  background: var(--dash-card-highlight);
+  color: var(--dash-primary-btn);
+  border-color: var(--dash-logo-bg);
+}
+.filter-saved-btn:hover {
+  background-color: var(--dash-bg-light);
+}
+
+/* Save Toggle inside Reading Room */
+.save-toggle-btn {
+  background: var(--dash-bg-light);
+  border: 1px solid var(--dash-border-light);
+  padding: 5px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--dash-text);
+  transition: all 0.2s;
+}
+.save-toggle-btn.saved {
+  background: var(--dash-card-highlight);
+  border-color: var(--dash-logo-bg);
+  color: var(--dash-primary-btn);
+  font-weight: bold;
+}
+
+/* Saved Badge on the Book Card */
+.book-card {
+  position: relative; 
+}
+.saved-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(139, 94, 60, 0.2);
+  color: var(--dash-primary-btn);
+}
+
+/* Genre Filter Dropdown */
+.genre-filter-select {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--dash-border-light);
+  background-color: var(--dash-card-bg);
+  color: var(--dash-text);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+.genre-filter-select:hover {
+  background-color: var(--dash-bg-light);
+}
+
+/* Profile Form Styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--dash-text);
+}
+.profile-form input {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid var(--dash-border-light);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--dash-bg-light);
+  color: var(--dash-text);
+}
+.profile-avatar-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.profile-avatar-preview img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--dash-primary-btn);
+  box-shadow: 0 4px 8px rgba(139, 94, 60, 0.15);
 }

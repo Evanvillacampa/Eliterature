@@ -1,41 +1,65 @@
 import { useState } from 'react';
-import Dashboard from './components/Dashboard'; // Connects to your new file!
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'; // <-- NEW ROUTER IMPORTS
+import Dashboard from './components/Dashboard';
+import { supabase } from './supabaseClient';
 import './App.css';
 
 function App() {
   const [activePanel, setActivePanel] = useState(null);
-  const [loginUsername, setLoginUsername] = useState('');
-  
-  // 1. New State to track if user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // <-- This acts as our "steering wheel" to change pages
+
+  // Login States
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+
+  // Sign Up States
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
 
   const togglePanel = (panelName) => {
     setActivePanel((prevPanel) => (prevPanel === panelName ? null : panelName));
   };
 
-  const handleUsernameChange = (e) => {
-    setLoginUsername(e.target.value);
-  };
-
-  // 2. Function to handle the actual login button click
-  const handleLoginSubmit = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    setIsLoggedIn(true); // Changes state to true, triggering the Dashboard
+    const { data, error } = await supabase.auth.signUp({
+      email: signupEmail,
+      password: signupPassword,
+    });
+
+    if (error) {
+      alert("Error creating account: " + error.message);
+    } else {
+      alert("Account created successfully! You can now log in.");
+      togglePanel('login');
+    }
   };
 
-  // 3. Function to handle logging out from the dashboard
-  const handleLogout = () => {
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginEmail,
+      password: loginPassword,
+    });
+
+    if (error) {
+      alert("Login failed: " + error.message);
+    } else {
+      setIsLoggedIn(true);
+      navigate('/dashboard'); // <-- Redirects the URL to /dashboard upon success
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setIsLoggedIn(false);
-    setActivePanel(null); // Resets the panels so they don't pop open
+    setActivePanel(null);
+    navigate('/'); // <-- Redirects the URL back to the home page
   };
 
-  // 4. If the user is logged in, ONLY show the Dashboard!
-  if (isLoggedIn) {
-    return <Dashboard onLogout={handleLogout} />;
-  }
-
-  // Otherwise, show the landing page below...
-  return (
+  // --- We extract the landing page UI into a variable so the router code below stays clean ---
+  const LandingPage = (
     <>
       <header className="navbar">
         <div className="navbar-logo-container">
@@ -64,27 +88,29 @@ function App() {
         <div className={`auth-panel ${activePanel === 'login' ? 'active' : ''}`} id="loginPanel">
           <h2 className="auth-title">Welcome Back</h2>
           
-          {/* 5. UPDATED: Connected the form to our new login function */}
           <form id="loginForm" onSubmit={handleLoginSubmit}>
             <div className="input-container">
               <input 
-                type="text" 
-                id="loginUsername" 
-                placeholder="Username" 
-                value={loginUsername}
-                onChange={handleUsernameChange}
+                type="email" 
+                placeholder="Email Address" 
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
                 required 
               />
             </div>
             <div className="input-container">
-              <input type="password" id="loginPassword" placeholder="Password" required />
+              <input 
+                type="password" 
+                placeholder="Password" 
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required 
+              />
             </div>
-            
             <button type="submit" className="btn-submit">Log In</button>
           </form>
           
           <div className="auth-footer">
-            <a href="#" className="forgot-password" onClick={(e) => e.preventDefault()}>Forgot Password?</a>
             <p className="switch-prompt">
               Don't have an account? <a href="#" className="switch-link" onClick={(e) => { e.preventDefault(); togglePanel('signup'); }}>Sign Up</a>
             </p>
@@ -95,20 +121,25 @@ function App() {
         <div className={`auth-panel ${activePanel === 'signup' ? 'active' : ''}`} id="signupPanel">
           <h2 className="auth-title">Create Account</h2>
           
-          <form id="signupForm" onSubmit={(e) => e.preventDefault()}>
+          <form id="signupForm" onSubmit={handleSignUp}>
             <div className="input-container">
-              <input type="email" id="signupEmail" placeholder="Email Address" required />
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
+                required 
+              />
             </div>
             <div className="input-container">
-              <input type="text" id="signupUsername" placeholder="Username" required />
+              <input 
+                type="password" 
+                placeholder="Password (min 6 characters)" 
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+                required 
+              />
             </div>
-            <div className="input-container">
-              <input type="password" id="signupPassword" placeholder="Password" required />
-            </div>
-            <div className="input-container">
-              <input type="password" id="signupConfirm" placeholder="Confirm Password" required />
-            </div>
-            
             <button type="submit" className="btn-submit">Create Account</button>
           </form>
           
@@ -122,15 +153,29 @@ function App() {
         {/* About Panel */}
         <div className={`auth-panel ${activePanel === 'about' ? 'active' : ''}`} id="aboutPanel">
           <h2 className="auth-title">About This Project</h2>
-          
           <p style={{ textAlign: 'center', color: '#4A4A4A', lineHeight: 1.6, fontSize: '16px', marginBottom: '25px' }}>
             This website is created for the sole purpose of midterm completion.
           </p>
-          
           <button className="btn-submit" onClick={() => setActivePanel(null)}>Close</button>
         </div>
       </section>
     </>
+  );
+
+  // --- THE ACTUAL APP ROUTING SYSTEM ---
+  return (
+    <Routes>
+      {/* Route 1: The standard home page */}
+      <Route path="/" element={LandingPage} />
+
+      {/* Route 2: The Dashboard page. Notice the extra security check! */}
+      <Route 
+        path="/dashboard" 
+        element={
+          isLoggedIn ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/" />
+        } 
+      />
+    </Routes>
   );
 }
 
