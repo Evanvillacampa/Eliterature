@@ -743,3 +743,86 @@ textarea {
   border: 3px solid var(--dash-primary-btn);
   box-shadow: 0 4px 8px rgba(139, 94, 60, 0.15);
 }
+
+/* =========================================
+   📱 MOBILE & TABLET RESPONSIVENESS 
+========================================= */
+
+/* Tablets & Smaller Laptops (Screens 900px or smaller) */
+@media (max-width: 900px) {
+  /* Stack the header elements so they don't squish */
+  .dash-header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  /* Make the search bar take up full width */
+  .dash-header-center {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    order: 3; /* Pushes search bar below logo and profile */
+  }
+
+  .dash-header-right {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+
+  /* Reduce the massive side padding on the main body */
+  .dash-main {
+    padding: 30px 20px; 
+  }
+
+  /* Stack the reading room image and text vertically */
+  .reading-room-body {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reading-cover {
+    width: 160px;
+    height: 240px;
+  }
+}
+
+/* Mobile Phones (Screens 600px or smaller) */
+@media (max-width: 600px) {
+  /* Make books slightly smaller to fit two side-by-side on phones */
+  .dash-book-grid {
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+  }
+
+  .book-card {
+    height: 280px;
+  }
+
+  .book-cover-img {
+    height: 180px;
+  }
+
+  /* Shrink the logo slightly */
+  .dash-logo-text {
+    font-size: 20px;
+  }
+
+  /* Ensure modals don't bleed off the screen on small phones */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .reading-room {
+    width: 95%;
+    padding: 20px;
+  }
+
+  /* Stack reading room buttons on top of each other */
+  .reading-room-actions {
+    flex-direction: column;
+  }
+}
