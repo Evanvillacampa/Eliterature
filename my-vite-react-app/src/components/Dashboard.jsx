@@ -329,9 +329,21 @@ const Dashboard = ({ onLogout }) => {
                 <div className="reading-summary"><strong>Summary:</strong><p>{selectedBook.summary || "No summary provided for this book."}</p></div>
                 <div className="reading-room-actions">
                   {/* The Read button stays visible for EVERYONE */}
-                  <button className="read-book-btn" onClick={() => window.open(selectedBook.file_url)}>
-                    Read Book
-                  </button>
+                 {selectedBook.file_url ? (
+                    <a 
+                      href={selectedBook.file_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="read-book-btn"
+                      style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
+                    >
+                      Read Book
+                    </a>
+                  ) : (
+                    <button className="read-book-btn" onClick={() => alert("Error: Could not find the file link!")}>
+                      File Missing
+                    </button>
+                  )}
 
                   {/* Admin & Owner check */}
                   {user && (user.id === selectedBook.user_id || user.email === '5jsam1208@gmail.com') && (
