@@ -331,11 +331,20 @@ const Dashboard = ({ onLogout }) => {
                   {/* The Read button stays visible for EVERYONE */}
                  {selectedBook.file_url ? (
                     <a 
-                      href="https://epkcktuscxuywiobffhg.supabase.co/storage/v1/object/public/book_files/1777638525668_thinkpython2.pdf" 
+                      href={selectedBook.file_url} 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="read-book-btn"
-                      style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
+                      style={{ 
+                        textDecoration: 'none', 
+                        display: 'inline-block', 
+                        textAlign: 'center',
+                        cursor: 'pointer' 
+                      }}
+                      onClick={(e) => {
+                        // This is the most important part!
+                        e.stopPropagation(); 
+                      }}
                     >
                       Read Book
                     </a>
