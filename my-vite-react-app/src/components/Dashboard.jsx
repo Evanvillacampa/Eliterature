@@ -185,13 +185,22 @@ const Dashboard = ({ onLogout }) => {
           <div className="dash-search-container" style={{ display: 'flex', gap: '10px', background: 'none', padding: 0 }}>
             <input type="text" placeholder="Search Books..." className="dash-search-input" style={{ background: '#f5f5f5', padding: '10px 15px', borderRadius: '20px', border: '1px solid #ddd' }} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             <select className="genre-filter-select" value={filterGenre} onChange={(e) => setFilterGenre(e.target.value)}>
-              <option value="All">All Genres</option>
-              <option value="Fiction">Fiction</option><option value="Non-Fiction">Non-Fiction</option>
-              <option value="Sci-Fi">Sci-Fi</option><option value="Fantasy">Fantasy</option>
-              <option value="Mystery">Mystery</option><option value="Thriller">Thriller</option>
-              <option value="Romance">Romance</option><option value="Horror">Horror</option>
-              <option value="Biography">Biography</option><option value="History">History</option>
-              <option value="Poetry">Poetry</option><option value="Self-Help">Self-Help</option>
+              <option value="">All Genres</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+              <option value="Educational">Educational</option>
+              <option value="Psychological">Psychological</option>
+              <option value="Science">Science</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Programming">Programming</option>
+              <option value="History">History</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Romance">Romance</option>
+              <option value="Horror">Horror</option>
+              <option value="Poetry">Poetry</option>
+              <option value="Other">Other</option>
             </select>
           </div>
         </div>
@@ -267,12 +276,22 @@ const Dashboard = ({ onLogout }) => {
               <input type="text" placeholder="Book Title" required value={newBook.title} onChange={(e) => setNewBook({...newBook, title: e.target.value})} />
               <input type="text" placeholder="Author Name" required value={newBook.author} onChange={(e) => setNewBook({...newBook, author: e.target.value})} />
               <select value={newBook.genre} onChange={(e) => setNewBook({...newBook, genre: e.target.value})}>
-                <option value="Fiction">Fiction</option><option value="Non-Fiction">Non-Fiction</option>
-                <option value="Sci-Fi">Sci-Fi</option><option value="Fantasy">Fantasy</option>
-                <option value="Mystery">Mystery</option><option value="Thriller">Thriller</option>
-                <option value="Romance">Romance</option><option value="Horror">Horror</option>
-                <option value="Biography">Biography</option><option value="History">History</option>
-                <option value="Poetry">Poetry</option><option value="Self-Help">Self-Help</option>
+                <option value="" disabled>Select a Genre</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Non-Fiction">Non-Fiction</option>
+                <option value="Educational">Educational</option>
+                <option value="Psychological">Psychological</option>
+                <option value="Science">Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Programming">Programming</option>
+                <option value="History">History</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Romance">Romance</option>
+                <option value="Horror">Horror</option>
+                <option value="Poetry">Poetry</option>
+                <option value="Other">Other</option>
               </select>
               <textarea placeholder="Write a short summary..." rows="3" value={newBook.summary} onChange={(e) => setNewBook({...newBook, summary: e.target.value})} />
               <div className="file-inputs">
