@@ -19,7 +19,7 @@ const BookCard = ({ book, onClick, isSaved }) => {
   );
 };
 
-const Dashboard = ({ onLogout }) => {
+const Dashboard = ({ onLogout, user }) => {
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterGenre, setFilterGenre] = useState('All');
@@ -363,12 +363,17 @@ const Dashboard = ({ onLogout }) => {
                   )}
 
                   {/* Admin & Owner check */}
-                  {user && (user.id === selectedBook.user_id || user.email === '5jsam1208@gmail.com') && (
+                  {(user || currentUser) && (
+                    (user?.id === selectedBook?.user_id || 
+                    currentUser?.id === selectedBook?.user_id || 
+                    user?.email === '5jsam1208@gmail.com' || 
+                    currentUser?.email === '5jsam1208@gmail.com')
+                  ) && (
                     <>
-                      <button className="edit-book-btn" onClick={() => handleEdit(selectedBook)}>
+                      <button className="edit-book-btn" onClick={() => handleEditClick(selectedBook)}>
                         Edit
                       </button>
-                      <button className="delete-book-btn" onClick={() => handleDelete(selectedBook.id)}>
+                      <button className="delete-book-btn" onClick={() => handleDeleteBook(selectedBook)}>
                         Delete
                       </button>
                     </>
