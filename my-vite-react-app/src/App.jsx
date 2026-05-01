@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'; // <-- NEW ROUTER IMPORTS
+import { useState, useEffect } from 'react'; // <-- ADDED useEffect here!
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import { supabase } from './supabaseClient';
 import './App.css';
@@ -7,7 +7,8 @@ import './App.css';
 function App() {
   const [activePanel, setActivePanel] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // <-- This acts as our "steering wheel" to change pages
+  const [isLoading, setIsLoading] = useState(true); // <-- ADDED loading state!
+  const navigate = useNavigate();
 
   // Login States
   const [loginEmail, setLoginEmail] = useState('');
@@ -16,6 +17,25 @@ function App() {
   // Sign Up States
   const [signupEmail, setSignupEmail] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
+
+  // --- ADDED: The Supabase "Memory" Check ---
+  useEffect(() => {
+    // 1. Check if they are already logged in when they refresh
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session); // If there is a session, this becomes true!
+      setIsLoading(false);      // Tell React we are done checking
+    });
+
+    // 2. Listen for any logins or logouts in the background
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+      setIsLoading(false);
+    });
+
+    // Cleanup the listener
+    return () => subscription.unsubscribe();
+  }, []);
+  // ------------------------------------------
 
   const togglePanel = (panelName) => {
     setActivePanel((prevPanel) => (prevPanel === panelName ? null : panelName));
@@ -47,7 +67,7 @@ function App() {
       alert("Login failed: " + error.message);
     } else {
       setIsLoggedIn(true);
-      navigate('/dashboard'); // <-- Redirects the URL to /dashboard upon success
+      navigate('/dashboard');
     }
   };
 
@@ -55,10 +75,9 @@ function App() {
     await supabase.auth.signOut();
     setIsLoggedIn(false);
     setActivePanel(null);
-    navigate('/'); // <-- Redirects the URL back to the home page
+    navigate('/');
   };
 
-  // --- We extract the landing page UI into a variable so the router code below stays clean ---
   const LandingPage = (
     <>
       <header className="navbar">
@@ -162,13 +181,19 @@ function App() {
     </>
   );
 
-  // --- THE ACTUAL APP ROUTING SYSTEM ---
+  // --- ADDED: The "Hold Your Horses" Loading Screen ---
+  // This prevents React from kicking you out before Supabase finishes checking
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'white' }}>
+        <h2>Loading your library...</h2>
+      </div>
+    );
+  }
+
   return (
     <Routes>
-      {/* Route 1: The standard home page */}
       <Route path="/" element={LandingPage} />
-
-      {/* Route 2: The Dashboard page. Notice the extra security check! */}
       <Route 
         path="/dashboard" 
         element={
