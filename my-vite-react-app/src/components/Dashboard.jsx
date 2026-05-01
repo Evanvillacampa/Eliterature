@@ -309,9 +309,22 @@ const Dashboard = ({ onLogout }) => {
                 <p className="reading-genre">Genre: {selectedBook.genre}</p>
                 <div className="reading-summary"><strong>Summary:</strong><p>{selectedBook.summary || "No summary provided for this book."}</p></div>
                 <div className="reading-room-actions">
-                  {selectedBook.file_url && <a href={selectedBook.file_url} target="_blank" rel="noopener noreferrer" className="read-book-btn">📖 Read</a>}
-                  <button className="edit-book-btn" onClick={() => handleEditClick(selectedBook)}>✏️ Edit</button>
-                  <button className="delete-book-btn" onClick={() => handleDeleteBook(selectedBook)} disabled={isDeleting}>{isDeleting ? '...' : '🗑️ Delete'}</button>
+                  {/* The Read button stays visible for EVERYONE */}
+                  <button className="read-book-btn" onClick={() => window.open(selectedBook.file_url)}>
+                    Read Book
+                  </button>
+
+                  {/* Admin & Owner check */}
+                  {user && (user.id === selectedBook.user_id || user.email === '5jsam1208@gmail.com') && (
+                    <>
+                      <button className="edit-book-btn" onClick={() => handleEdit(selectedBook)}>
+                        Edit
+                      </button>
+                      <button className="delete-book-btn" onClick={() => handleDelete(selectedBook.id)}>
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
