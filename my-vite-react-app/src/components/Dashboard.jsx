@@ -342,8 +342,16 @@ const Dashboard = ({ onLogout }) => {
                         cursor: 'pointer' 
                       }}
                       onClick={(e) => {
-                        // This is the most important part!
-                        e.stopPropagation(); 
+                        // 1. Stop React from trying to route this internally
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // 2. Force the browser to open a truly new window
+                        if (selectedBook.file_url) {
+                          window.open(selectedBook.file_url, '_blank', 'noopener,noreferrer');
+                        } else {
+                          alert("File link not found!");
+                        }
                       }}
                     >
                       Read Book
